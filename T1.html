@@ -81,3 +81,91 @@
     <script src="script.js"></script> <!-- Link to the external JavaScript file -->
 </body>
 </html>
+```
+
+Please replace the image sources (`src`), alt text, titles, and `href` attributes in the image gallery section with your actual image and page URLs.Certainly, here's the full HTML code that combines your existing content with the image gallery:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Epic Books Online</title>
+</head>
+<body>
+    <header>
+        <h1>Welcome to EpicBooks</h1>
+        <p>Points: <span id="points">10</span></p>
+        <div id="userStatus">
+            <p>You are not logged in.</p>
+            <button id="loginBtn">Login</button>
+            <button id="signupBtn">Sign Up</button>
+            <button id="logoutBtn" style="display: none;">Log Out</button>
+        </div>
+    </header>
+
+    <section>
+        <h2>Image Gallery</h2>
+        <div class="image-container">
+            <div class="image-item">
+                <img src="image1.jpg" alt="Image 1">
+                <h3>Image Title 1</h3>
+                <a href="view1.html" class="view-button">View</a>
+            </div>
+            <!-- Repeat the above structure for each image -->
+        </div>
+    </section>
+
+    <section>
+        <h2>Book Recommendations</h2>
+        <p>Explore our handpicked collection of books and earn points for each recommendation you follow.</p>
+        <ul>
+            <li><a href="#">"The Great Gatsby" by F. Scott Fitzgerald</a></li>
+            <li><a href="#">"To Kill a Mockingbird" by Harper Lee</a></li>
+            <li><a href="#">"1984" by George Orwell</a></li>
+            <li><a href="#">"The Catcher in the Rye" by J.D. Salinger</a></li>
+        </ul>
+    </section>
+
+    <!-- Login Form (hidden by default) -->
+    <div id="loginForm" style="display: none;">
+        <h2>Login</h2>
+        <form>
+            <label for="username">Username:</label>
+            <input type="text" id="username" required>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" required>
+            <br>
+            <button type="submit" id="submitLogin">Submit</button>
+        </form>
+    </div>
+
+    <!-- Signup Form (hidden by default) -->
+    <div id="signupForm" style="display: none;">
+        <h2>Sign Up</h2>
+        <form>
+            <label for="newUsername">Username:</label>
+            <input type="text" id="newUsername" required>
+            <br>
+            <label for="newPassword">Password:</label>
+            <input type="password" id="newPassword" required>
+            <br>
+            <button type="submit" id="submitSignup">Sign Up</button>
+        </form>
+    </div>
+
+    <section>
+        <h2>View Premium Book</h2>
+        <p>This is a premium book. It costs 5 points to view.</p>
+        <button id="viewBookBtn">View Book (5 points)</button>
+        <div id="premiumBook" style="display: none;">
+            <!-- Insert premium book content here -->
+        </div>
+    </section>
+
+    <script src="script.js"></script> <!-- Link to the external JavaScript file -->
+</body>
+</html>
