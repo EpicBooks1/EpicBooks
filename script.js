@@ -1,8 +1,5 @@
-// script.js
-// Define your JavaScript functions here
-
-// Simulated user points (you would normally store this on the server)
-let userPoints = 10;
+// Initialize simulated user points and logged-in user
+let userPoints = 0;
 let loggedInUser = null;
 
 // Update the points display
@@ -32,6 +29,8 @@ document.getElementById("submitLogin").addEventListener("click", function (event
         loggedInUser = username;
         document.getElementById("userStatus").innerHTML = `<p>Welcome, ${loggedInUser}!</p>`;
         document.getElementById("loginForm").style.display = "none";
+        document.getElementById("logoutBtn").style.display = "block"; // Show "Log Out" button
+        document.getElementById("earnPointsBtn").style.display = "block"; // Show "Earn Points" button after login
     } else {
         alert("Login failed. Please check your credentials.");
     }
@@ -48,57 +47,26 @@ document.getElementById("submitSignup").addEventListener("click", function (even
     if (newUsername && newPassword) {
         alert("Sign up successful! You can now log in.");
         // Optionally, you can automatically log in the user here.
+        document.getElementById("logoutBtn").style.display = "block"; // Show "Log Out" button
+        document.getElementById("earnPointsBtn").style.display = "block"; // Show "Earn Points" button after signup
     } else {
         alert("Please fill in both username and password fields.");
     }
 });
 
-// Function to view the premium book
-document.getElementById("viewBookBtn").addEventListener("click", function () {
-    if (loggedInUser) {
-        if (userPoints >= 5) {
-            userPoints -= 5; // Deduct 5 points for viewing the book
-            updatePointsDisplay();
-            document.getElementById("premiumBook").style.display = "block";
-        } else {
-            alert("You don't have enough points to view this book.");
-        }
-    } else {
-        alert("Please log in to view this book.");
-    }
+// Function to handle logout
+document.getElementById("logoutBtn").addEventListener("click", function () {
+    loggedInUser = null; // Clear the logged-in user
+    document.getElementById("userStatus").innerHTML = "<p>You are not logged in.</p>";
+    document.getElementById("logoutBtn").style.display = "none"; // Hide "Log Out" button
+    document.getElementById("earnPointsBtn").style.display = "none"; // Hide "Earn Points" button after logout
 });
 
-// Add this to your existing script.js
-
-// Example book data
-const books = [
-    { title: "Book 1", pdfUrl: "book1.pdf", cost: 5 },
-    // Add more books with their details
-];
-
-// Function to create a pop-up window with a PDF
-function openPdf(pdfUrl) {
-    const pdfWindow = window.open(pdfUrl, "_blank", "width=600,height=400");
-    if (pdfWindow) {
-        pdfWindow.focus();
-    } else {
-        alert("Please allow pop-ups for this site to view the PDF.");
-    }
-}
-
-// Add "Read" button click event listeners to each book
-const readButtons = document.querySelectorAll(".read-button");
-readButtons.forEach((button, index) => {
-    button.addEventListener("click", () => {
-        // Check if the user is logged in and has enough points
-        if (loggedInUser && userPoints >= books[index].cost) {
-            // Deduct points from the user (you would update this logic)
-            userPoints -= books[index].cost;
-            updatePointsDisplay();
-            // Open the PDF in a pop-up window
-            openPdf(books[index].pdfUrl);
-        } else {
-            alert("You must be logged in and have enough points to read this book.");
-        }
+// Function to handle image gallery navigation (replace with your image URLs and page URLs)
+document.querySelectorAll(".view-button").forEach(function (button) {
+    button.addEventListener("click", function () {
+        const imageTitle = this.parentElement.querySelector("h3").textContent;
+        alert(`You clicked on "${imageTitle}". Redirect to another page here.`);
+        // Replace the alert with the actual redirection logic
     });
 });
