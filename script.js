@@ -1,72 +1,98 @@
-// Initialize simulated user points and logged-in user
-let userPoints = 0;
-let loggedInUser = null;
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const pointsElement = document.getElementById("points");
+        const userStatusElement = document.getElementById("userStatus");
+        const loginBtn = document.getElementById("loginBtn");
+        const signupBtn = document.getElementById("signupBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const loginForm = document.getElementById("loginForm");
+        const signupForm = document.getElementById("signupForm");
+        const submitLogin = document.getElementById("submitLogin");
+        const submitSignup = document.getElementById("submitSignup");
+        const viewBookBtn = document.getElementById("viewBookBtn");
+        const premiumBook = document.getElementById("premiumBook");
 
-// Update the points display
-function updatePointsDisplay() {
-    document.getElementById("points").textContent = userPoints;
-}
+        // Mock user data
+        let isLoggedIn = false;
+        let userPoints = 10;
 
-// Function to earn points
-document.getElementById("earnPointsBtn").addEventListener("click", function () {
-    userPoints += 1; // Simulate earning 1 point
-    updatePointsDisplay();
-});
+        // Initial state
+        updateUI();
 
-// Function to show the login form
-document.getElementById("loginBtn").addEventListener("click", function () {
-    document.getElementById("loginForm").style.display = "block";
-});
+        // Show/hide login and signup forms
+        loginBtn.addEventListener("click", function () {
+            loginForm.style.display = "block";
+            signupForm.style.display = "none";
+        });
 
-// Function to handle login form submission
-document.getElementById("submitLogin").addEventListener("click", function (event) {
-    event.preventDefault();
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+        signupBtn.addEventListener("click", function () {
+            signupForm.style.display = "block";
+            loginForm.style.display = "none";
+        });
 
-    // Simulated user authentication (replace with your authentication logic)
-    if (username === "user" && password === "password") {
-        loggedInUser = username;
-        document.getElementById("userStatus").innerHTML = `<p>Welcome, ${loggedInUser}!</p>`;
-        document.getElementById("loginForm").style.display = "none";
-        document.getElementById("logoutBtn").style.display = "block"; // Show "Log Out" button
-        document.getElementById("earnPointsBtn").style.display = "block"; // Show "Earn Points" button after login
-    } else {
-        alert("Login failed. Please check your credentials.");
-    }
-});
+        // Login functionality
+        submitLogin.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent form submission
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
-// Function to handle signup form submission
-document.getElementById("submitSignup").addEventListener("click", function (event) {
-    event.preventDefault();
-    const newUsername = document.getElementById("newUsername").value;
-    const newPassword = document.getElementById("newPassword").value;
+            // Mock login logic (replace with your actual login logic)
+            if (username === "your_username" && password === "your_password") {
+                isLoggedIn = true;
+                userPoints = 10; // You can set the user's points here
+                updateUI();
+            } else {
+                alert("Login failed. Please check your credentials.");
+            }
+        });
 
-    // Simulated user registration (replace with your registration logic)
-    // For simplicity, this example allows any username and password.
-    if (newUsername && newPassword) {
-        alert("Sign up successful! You can now log in.");
-        // Optionally, you can automatically log in the user here.
-        document.getElementById("logoutBtn").style.display = "block"; // Show "Log Out" button
-        document.getElementById("earnPointsBtn").style.display = "block"; // Show "Earn Points" button after signup
-    } else {
-        alert("Please fill in both username and password fields.");
-    }
-});
+        // Signup functionality
+        submitSignup.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent form submission
+            const newUsername = document.getElementById("newUsername").value;
+            const newPassword = document.getElementById("newPassword").value;
 
-// Function to handle logout
-document.getElementById("logoutBtn").addEventListener("click", function () {
-    loggedInUser = null; // Clear the logged-in user
-    document.getElementById("userStatus").innerHTML = "<p>You are not logged in.</p>";
-    document.getElementById("logoutBtn").style.display = "none"; // Hide "Log Out" button
-    document.getElementById("earnPointsBtn").style.display = "none"; // Hide "Earn Points" button after logout
-});
+            // Mock signup logic (replace with your actual signup logic)
+            // Here, we assume a successful signup
+            isLoggedIn = true;
+            userPoints = 10; // You can set the user's points here
+            updateUI();
+        });
 
-// Function to handle image gallery navigation (replace with your image URLs and page URLs)
-document.querySelectorAll(".view-button").forEach(function (button) {
-    button.addEventListener("click", function () {
-        const imageTitle = this.parentElement.querySelector("h3").textContent;
-        alert(`You clicked on "${imageTitle}". Redirect to another page here.`);
-        // Replace the alert with the actual redirection logic
+        // Logout functionality
+        logoutBtn.addEventListener("click", function () {
+            isLoggedIn = false;
+            userPoints = 0;
+            updateUI();
+        });
+
+        // View premium book functionality
+        viewBookBtn.addEventListener("click", function () {
+            if (isLoggedIn && userPoints >= 5) {
+                userPoints -= 5;
+                updateUI();
+                premiumBook.style.display = "block"; // Show the premium book content
+            } else {
+                alert("You need at least 5 points to view the premium book.");
+            }
+        });
+
+        // Function to update the UI based on login and points status
+        function updateUI() {
+            if (isLoggedIn) {
+                userStatusElement.innerHTML = `<p>Welcome, you have <span id="points">${userPoints}</span> points.</p>`;
+                loginBtn.style.display = "none";
+                signupBtn.style.display = "none";
+                logoutBtn.style.display = "block";
+                loginForm.style.display = "none";
+                signupForm.style.display = "none";
+            } else {
+                userStatusElement.innerHTML = `<p>You are not logged in.</p>`;
+                loginBtn.style.display = "block";
+                signupBtn.style.display = "block";
+                logoutBtn.style.display = "none";
+            }
+            pointsElement.textContent = userPoints;
+        }
     });
-});
+</script>
